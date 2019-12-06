@@ -10,4 +10,12 @@ void main() {
     expect(candiesDistributed(7,1), [7]);
     expect(candiesDistributed(7,0), []);
   });
+
+  test('Test Case 2', () {
+    expect(coinEarnedForOneBalloon([1,2,3,4], 1), 2);
+    expect(coinEarnedForOneBalloon([1,2,3,4], 4), 12);
+    expect(coinEarnedForOneBalloon([1,2,3,4], 2), 6);
+    expect(coinEarnedForOneBalloon([1], 1), 1);
+    expect(coinEarnedForOneBalloon([5], 1), 5);
+  });
 }
