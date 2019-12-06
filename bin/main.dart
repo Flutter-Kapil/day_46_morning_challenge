@@ -17,8 +17,10 @@
 // Input: candies = 7, num_people = 4
 //  Output: [1,2,3,1]
 List<int> candiesDistributed(int candies, int numOfPeople){
+  if(numOfPeople ==0 ){
+    return [];
+  }
   List distribution = List<int>.generate(numOfPeople, (i) => 0);
-  print(distribution);
   while(candies>0){
     int remainingCandies = candies;
     for(int i=0;i<numOfPeople;i++){
@@ -29,7 +31,6 @@ List<int> candiesDistributed(int candies, int numOfPeople){
       distribution[i]=distribution[i]+(candiesToGive);
       remainingCandies = candies - candiesToGive;
       candies = remainingCandies;
-      print(distribution);
     }
   }
   return distribution;
