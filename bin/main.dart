@@ -35,9 +35,6 @@ List<int> candiesDistributed(int candies, int numOfPeople){
   }
   return distribution;
 }
-main() {
-  print(candiesDistributed(7,4));
-}
 
 
 // Challenge 2
@@ -56,5 +53,14 @@ main() {
 // Stage 2
 // Implement the algorithm to calculate the maximum coins that can be earned.
 
+int coinEarnedForOneBalloon(List<int> nums, int balloonPopped){
+  balloonPopped = balloonPopped-1;
+  int left = balloonPopped<1?1:nums[(balloonPopped-1)];
+  int right = balloonPopped>=(nums.length-1)?1:nums[(balloonPopped+1)];
+  print('left:$left right:$right');
+  return (left*nums[balloonPopped]*right);
+}
 
-main() {}
+main() {
+  print(coinEarnedForOneBalloon([1,2,3,4], 1));
+}
