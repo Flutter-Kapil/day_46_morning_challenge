@@ -38,3 +38,23 @@ List<int> candiesDistributed(int candies, int numOfPeople){
 main() {
   print(candiesDistributed(7,4));
 }
+
+
+// Challenge 2
+// Burst Balloons
+// Given n balloons, indexed from 0 to n-1. Each balloon is painted with a number
+// on it represented by array nums. You are asked to burst all the balloons.
+// If the you burst balloon i you will get nums[left] * nums[i] * nums[right] coins.
+// Here left and right are adjacent indices of i. After the burst, the left and
+// right then becomes adjacent.
+//
+//  Find the maximum coins you can collect by bursting the balloons wisely.
+
+// Stage 1
+// Write a function which calculates total coins earned by bursting a balloon at index 'i'
+
+// Stage 2
+// Implement the algorithm to calculate the maximum coins that can be earned.
+
+
+main() {}
