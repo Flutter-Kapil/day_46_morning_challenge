@@ -23,6 +23,9 @@ List<int> candiesDistributed(int candies, int numOfPeople){
     int remainingCandies = candies;
     for(int i=0;i<numOfPeople;i++){
         int candiesToGive = i+1;
+        if(candiesToGive>remainingCandies){
+          candiesToGive = remainingCandies;
+        }
       distribution[i]=distribution[i]+(candiesToGive);
       remainingCandies = candies - candiesToGive;
       candies = remainingCandies;
