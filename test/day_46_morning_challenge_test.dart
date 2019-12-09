@@ -19,8 +19,8 @@ void main() {
     expect(coinEarnedForOneBalloon([5], 1), 5);
   });
   test('Test Case 3', () {
-    expect(maxCoins([3, 4, 1, 8]), 160);
-    expect(maxCoins([8, 5, 3, 6]), 320);
-    // expect(maxCoins([3,1,5,8]), 167);
+    expect(getMaxCoins([3, 4, 1, 8]), 160);
+    expect(getMaxCoins([8, 5, 3, 6]), 386);
+    expect(getMaxCoins([3, 1, 5, 8]), 167);
   });
 }

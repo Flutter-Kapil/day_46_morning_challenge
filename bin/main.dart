@@ -54,15 +54,15 @@ List<int> candiesDistributed(int candies, int numOfPeople) {
 
 int coinEarnedForOneBalloon(List<int> nums, int balloonPopped) {
   balloonPopped = balloonPopped - 1;
-  int left = balloonPopped < 1 ? 1 : nums[(balloonPopped - 1)];
-  int right =
+  var left = balloonPopped < 1 ? 1 : nums[(balloonPopped - 1)];
+  var right =
       balloonPopped >= (nums.length - 1) ? 1 : nums[(balloonPopped + 1)];
   // print('left:$left right:$right');// #debug
   return (left * nums[balloonPopped] * right);
 }
 
 int popThisToEarnMaxAmount(List<int> balloons) {
-  int index = 1;
+  var index = 1;
   if (balloons.length == 1) {
     return 1;
   } else if (balloons.length == 2) {
@@ -80,7 +80,7 @@ int popThisToEarnMaxAmount(List<int> balloons) {
   return index;
 }
 
-int maxCoins(List<int> balloons) {
+int maxCoins2(List<int> balloons) {
   int count = balloons.length;
   int total = 0;
   while (count != 0) {
@@ -94,11 +94,28 @@ int maxCoins(List<int> balloons) {
   return total;
 }
 
+int getMaxCoins(List<int> balloons) {
+  int maxCoins = 0;
+  if (balloons.length == 1) {
+    return balloons[0];
+  }
+  for (int i = 0; i < balloons.length; i++) {
+    List<int> copyBalloons = List.from(balloons);
+    int coinsFromI = coinEarnedForOneBalloon(balloons, i + 1);
+    // print('coinsFromI:$coinsFromI');
+    copyBalloons.removeAt(i);
+    coinsFromI = coinsFromI + getMaxCoins(copyBalloons);
+    maxCoins = (maxCoins < coinsFromI) ? coinsFromI : maxCoins;
+  }
+
+  return maxCoins;
+}
+
 main() {
-  print(coinEarnedForOneBalloon([1, 2, 3, 4], 3));
-  print(popThisToEarnMaxAmount([1, 2, 3, 4]));
-  print(popThisToEarnMaxAmount([3, 4, 1, 8]));
-  print(popThisToEarnMaxAmount([8, 5, 3, 6]));
-  print(maxCoins([8, 5, 3, 6]));
-  print(maxCoins([3, 1, 5, 8]));
+  // print(coinEarnedForOneBalloon([1, 2, 3, 4], 3));
+  // print(popThisToEarnMaxAmount([1, 2, 3, 4]));
+  // print(popThisToEarnMaxAmount([3, 4, 1, 8]));
+  // print(popThisToEarnMaxAmount([8, 5, 3, 6]));
+  // print(maxCoins([8, 5, 3, 6]));
+  print(getMaxCoins([3, 1, 5, 8]));
 }
