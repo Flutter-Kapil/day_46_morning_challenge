@@ -16,26 +16,25 @@
 // Example
 // Input: candies = 7, num_people = 4
 //  Output: [1,2,3,1]
-List<int> candiesDistributed(int candies, int numOfPeople){
-  if(numOfPeople ==0 ){
+List<int> candiesDistributed(int candies, int numOfPeople) {
+  if (numOfPeople == 0) {
     return [];
   }
   List distribution = List<int>.generate(numOfPeople, (i) => 0);
-  while(candies>0){
+  while (candies > 0) {
     int remainingCandies = candies;
-    for(int i=0;i<numOfPeople;i++){
-        int candiesToGive = i+1;
-        if(candiesToGive>remainingCandies){
-          candiesToGive = remainingCandies;
-        }
-      distribution[i]=distribution[i]+(candiesToGive);
+    for (int i = 0; i < numOfPeople; i++) {
+      int candiesToGive = i + 1;
+      if (candiesToGive > remainingCandies) {
+        candiesToGive = remainingCandies;
+      }
+      distribution[i] = distribution[i] + (candiesToGive);
       remainingCandies = candies - candiesToGive;
       candies = remainingCandies;
     }
   }
   return distribution;
 }
-
 
 // Challenge 2
 // Burst Balloons
@@ -53,14 +52,53 @@ List<int> candiesDistributed(int candies, int numOfPeople){
 // Stage 2
 // Implement the algorithm to calculate the maximum coins that can be earned.
 
-int coinEarnedForOneBalloon(List<int> nums, int balloonPopped){
-  balloonPopped = balloonPopped-1;
-  int left = balloonPopped<1?1:nums[(balloonPopped-1)];
-  int right = balloonPopped>=(nums.length-1)?1:nums[(balloonPopped+1)];
-  print('left:$left right:$right');
-  return (left*nums[balloonPopped]*right);
+int coinEarnedForOneBalloon(List<int> nums, int balloonPopped) {
+  balloonPopped = balloonPopped - 1;
+  int left = balloonPopped < 1 ? 1 : nums[(balloonPopped - 1)];
+  int right =
+      balloonPopped >= (nums.length - 1) ? 1 : nums[(balloonPopped + 1)];
+  // print('left:$left right:$right');// #debug
+  return (left * nums[balloonPopped] * right);
+}
+
+int popThisToEarnMaxAmount(List<int> balloons) {
+  int index = 1;
+  if (balloons.length == 1) {
+    return 1;
+  } else if (balloons.length == 2) {
+    return balloons[0] > balloons[1] ? 2 : 1;
+  } else {
+    for (int i = 1; i < balloons.length; i++) {
+      int currentBallonValue = coinEarnedForOneBalloon(balloons, i);
+
+      if (currentBallonValue > coinEarnedForOneBalloon(balloons, index)) {
+        index = i;
+      }
+    }
+  }
+
+  return index;
+}
+
+int maxCoins(List<int> balloons) {
+  int count = balloons.length;
+  int total = 0;
+  while (count != 0) {
+    // print('here');
+    int ballonToPop = popThisToEarnMaxAmount(balloons);
+    total = total + coinEarnedForOneBalloon(balloons, ballonToPop);
+    print('ballonToPop:$ballonToPop');
+    balloons.removeAt(ballonToPop - 1);
+    count--;
+  }
+  return total;
 }
 
 main() {
-  print(coinEarnedForOneBalloon([1,2,3,4], 1));
+  print(coinEarnedForOneBalloon([1, 2, 3, 4], 3));
+  print(popThisToEarnMaxAmount([1, 2, 3, 4]));
+  print(popThisToEarnMaxAmount([3, 4, 1, 8]));
+  print(popThisToEarnMaxAmount([8, 5, 3, 6]));
+  print(maxCoins([8, 5, 3, 6]));
+  print(maxCoins([3, 1, 5, 8]));
 }
